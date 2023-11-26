@@ -232,15 +232,15 @@ export class OnChainManager {
             ([type]) => !options.disabledProviders.includes(type as OnChainTradeType)
         ) as [OnChainTradeType, OnChainProvider][];
         const dexesTradesPromise = this.calculateDexes(from, to, dexesProviders, options);
-        const lifiTradePromise = this.calculateLifiTrades(from, to, [], options);
-        const openOceanTradePromise = this.openOceanProvider.calculate(
-            from as PriceTokenAmount<EvmBlockchainName>,
-            to as PriceTokenAmount<EvmBlockchainName>,
-            options as RequiredOnChainCalculationOptions
-        );
+        // const lifiTradePromise = this.calculateLifiTrades(from, to, [], options);
+        // const openOceanTradePromise = this.openOceanProvider.calculate(
+        //     from as PriceTokenAmount<EvmBlockchainName>,
+        //     to as PriceTokenAmount<EvmBlockchainName>,
+        //     options as RequiredOnChainCalculationOptions
+        // );
 
         const allTrades = (
-            await Promise.all([dexesTradesPromise, lifiTradePromise, openOceanTradePromise])
+            await Promise.all([dexesTradesPromise])
         ).flat();
 
         return allTrades.filter(notNull).sort((tradeA, tradeB) => {
